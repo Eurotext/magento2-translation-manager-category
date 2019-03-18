@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Eurotext\TranslationManagerCategory\Api\Data\ProjectCategoryInterface"
+                type="Eurotext\TranslationManagerCategory\Model\ProjectCategory" />
+    <preference for="Eurotext\TranslationManagerCategory\Api\ProjectCategoryRepositoryInterface"
+                type="Eurotext\TranslationManagerCategory\Repository\ProjectCategoryRepository" />
+
+    <type name="Eurotext\TranslationManager\Entity\EntityTypePool">
+        <arguments>
+            <argument name="items" xsi:type="array">
+                <item name="attribute" xsi:type="object">Eurotext\TranslationManagerCategory\Entity\CategoryEntityType</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Eurotext\TranslationManager\Entity\EntitySeederPool">
+        <arguments>
+            <argument name="items" xsi:type="array">
+                <item name="attribute" xsi:type="object">Eurotext\TranslationManagerCategory\Seeder\CategorySeeder</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Eurotext\TranslationManager\Entity\EntitySenderPool">
+        <arguments>
+            <argument name="items" xsi:type="array">
+                <item name="attribute" xsi:type="object">Eurotext\TranslationManagerCategory\Sender\CategorySender</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Eurotext\TranslationManager\Entity\EntityRetrieverPool">
+        <arguments>
+            <argument name="items" xsi:type="array">
+                <item name="attribute" xsi:type="object">Eurotext\TranslationManagerCategory\Retriever\CategoryRetriever</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Eurotext\TranslationManagerCategory\Seeder\CategorySeeder">
+        <arguments>
+            <argument name="logger" xsi:type="object">Eurotext\TranslationManager\Logger\ApiLogger</argument>
+        </arguments>
+    </type>
+
+    <type name="Eurotext\TranslationManagerCategory\Sender\CategorySender">
+        <arguments>
+            <argument name="logger" xsi:type="object">Eurotext\TranslationManager\Logger\ApiLogger</argument>
+        </arguments>
+    </type>
+
+    <type name="Eurotext\TranslationManagerCategory\Retriever\CategoryRetriever">
+        <arguments>
+            <!-- @todo to we want a file log per entity or use the global logger -->
+            <argument name="logger" xsi:type="object">Eurotext\TranslationManager\Logger\ApiLogger</argument>
+        </arguments>
+    </type>
+
+</config>
