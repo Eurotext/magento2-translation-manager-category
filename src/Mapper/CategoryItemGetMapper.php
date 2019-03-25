@@ -11,6 +11,8 @@ namespace Eurotext\TranslationManagerCategory\Mapper;
 use Eurotext\RestApiClient\Response\Project\ItemGetResponse;
 use Eurotext\TranslationManagerCategory\ScopeConfig\CategoryScopeConfigReader;
 use Magento\Catalog\Api\Data\CategoryInterface;
+use Magento\Catalog\Model\Category;
+use Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator;
 
 class CategoryItemGetMapper
 {
@@ -19,9 +21,17 @@ class CategoryItemGetMapper
      */
     private $categoryScopeConfig;
 
-    public function __construct(CategoryScopeConfigReader $categoryScopeConfig)
-    {
+    /**
+     * @var CategoryUrlPathGenerator
+     */
+    private $categoryUrlPathGenerator;
+
+    public function __construct(
+        CategoryScopeConfigReader $categoryScopeConfig,
+        CategoryUrlPathGenerator $categoryUrlPathGenerator
+    ) {
         $this->categoryScopeConfig = $categoryScopeConfig;
+        $this->categoryUrlPathGenerator = $categoryUrlPathGenerator;
     }
 
     public function map(ItemGetResponse $itemGetResponse, CategoryInterface $category): CategoryInterface
@@ -50,6 +60,34 @@ class CategoryItemGetMapper
             $customAttribute->setValue($newValue);
         }
 
+        /** @var $category Category */
+        $this->triggerAutomaticUrlGenerate($category);
+
         return $category;
+    }
+
+    private function triggerAutomaticUrlGenerate(Category $category)
+    {
+        // Unset url-key so it gets automatically generated during save
+        // Unset Customer Attribute, if data is empty custom attribute is fallback value
+        $this->setDataAndCustomAttribute($category, 'url_key');
+        $urlKey = $this->categoryUrlPathGenerator->getUrlKey($category);
+        $this->setDataAndCustomAttribute($category, 'url_key', $urlKey);
+
+        // Unset url-path as well otherwise it does not work
+        // Unset Customer Attribute, if data is empty custom attribute is fallback value
+        $this->setDataAndCustomAttribute($category, 'url_path');
+        $urlPath = $this->categoryUrlPathGenerator->getUrlPath($category);
+        $this->setDataAndCustomAttribute($category, 'url_path', $urlPath);
+    }
+
+    private function setDataAndCustomAttribute(Category $category, string $key, string $value = null)
+    {
+        $category->setData($key);
+
+        $urlKeyAttribute = $category->getCustomAttribute($key);
+        if ($urlKeyAttribute !== null) {
+            $urlKeyAttribute->setValue($value);
+        }
     }
 }

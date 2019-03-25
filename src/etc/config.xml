@@ -9,7 +9,7 @@
     <default>
         <eurotext_translationmanager>
             <category>
-                <attributes_enabled>name,description</attributes_enabled>
+                <attributes_enabled>name,description,short_description,meta_title,meta_keyword,meta_description</attributes_enabled>
             </category>
         </eurotext_translationmanager>
     </default>
