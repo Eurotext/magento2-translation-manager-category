@@ -163,6 +163,46 @@ class CategorySeederUnitTest extends UnitTestAbstract
         $this->assertTrue($result);
     }
 
+    public function testItShouldSkipRootCategory()
+    {
+        $projectId = 33;
+        $totalCount = 1;
+        $entityId = 1;
+
+        $this->searchCriteriaBuilder->method('addFilter')->withConsecutive(
+            [ProjectCategorySchema::ENTITY_ID, $entityId],
+            [ProjectCategorySchema::PROJECT_ID, $projectId]
+        )->willReturnSelf();
+        $this->searchCriteriaBuilder->expects($this->once())
+                                    ->method('create')
+                                    ->willReturnOnConsecutiveCalls(new SearchCriteria(), new SearchCriteria());
+
+        // Category
+        $category = $this->createMock(CategoryInterface::class);
+        $category->expects($this->atLeastOnce())->method('getId')->willReturn($entityId);
+
+        $categoryResult = $this->createMock(CategorySearchResultsInterface::class);
+        $categoryResult->expects($this->once())->method('getTotalCount')->willReturn($totalCount);
+        $categoryResult->expects($this->once())->method('getItems')->willReturn([$category]);
+
+        $this->categoryRepository->expects($this->once())->method('getList')->willReturn($categoryResult);
+
+        // Search existing project entity
+        $this->projectCategoryRepository->expects($this->never())->method('getList');
+        $this->projectCategoryRepository->expects($this->never())->method('save');
+
+        $this->projectCategoryFactory->expects($this->never())->method('create');
+
+        // project mock
+        $project = $this->projectBuilder->buildProjectMock();
+        $project->expects($this->never())->method('getId');
+
+        // TEST
+        $result = $this->sut->seed($project);
+
+        $this->assertTrue($result);
+    }
+
     public function testItShouldCatchExceptionsWhileSaving()
     {
         $projectId = 33;

@@ -91,6 +91,11 @@ class CategorySeeder implements EntitySeederInterface
             // Found entity, so remove it from not found list
             unset($entitiesNotFound[$category->getId()]);
 
+            // Ignore category "Root Catalog", it is invisible and cannot be translated
+            if ((int)$category->getId() === 1) {
+                continue;
+            }
+
             /** @var $category CategoryInterface */
             $isSeeded = $this->seedEntity($project, $category);
 
@@ -100,7 +105,7 @@ class CategorySeeder implements EntitySeederInterface
         // Log entites that where not found
         if (count($entitiesNotFound) > 0) {
             foreach ($entitiesNotFound as $sku => $value) {
-                $this->logger->error(sprintf('category-sku "%s" not found', $sku));
+                $this->logger->error(sprintf('category-id "%s" not found', $sku));
             }
 
         }
