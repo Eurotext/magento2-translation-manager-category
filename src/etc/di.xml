@@ -8,7 +8,7 @@
     <type name="Eurotext\TranslationManager\Entity\EntityTypePool">
         <arguments>
             <argument name="items" xsi:type="array">
-                <item name="attribute" xsi:type="object">Eurotext\TranslationManagerCategory\Entity\CategoryEntityType</item>
+                <item name="category" xsi:type="object">Eurotext\TranslationManagerCategory\Entity\CategoryEntityType</item>
             </argument>
         </arguments>
     </type>
@@ -16,7 +16,7 @@
     <type name="Eurotext\TranslationManager\Entity\EntitySeederPool">
         <arguments>
             <argument name="items" xsi:type="array">
-                <item name="attribute" xsi:type="object">Eurotext\TranslationManagerCategory\Seeder\CategorySeeder</item>
+                <item name="category" xsi:type="object">Eurotext\TranslationManagerCategory\Seeder\CategorySeeder</item>
             </argument>
         </arguments>
     </type>
@@ -24,7 +24,7 @@
     <type name="Eurotext\TranslationManager\Entity\EntitySenderPool">
         <arguments>
             <argument name="items" xsi:type="array">
-                <item name="attribute" xsi:type="object">Eurotext\TranslationManagerCategory\Sender\CategorySender</item>
+                <item name="category" xsi:type="object">Eurotext\TranslationManagerCategory\Sender\CategorySender</item>
             </argument>
         </arguments>
     </type>
@@ -32,7 +32,7 @@
     <type name="Eurotext\TranslationManager\Entity\EntityRetrieverPool">
         <arguments>
             <argument name="items" xsi:type="array">
-                <item name="attribute" xsi:type="object">Eurotext\TranslationManagerCategory\Retriever\CategoryRetriever</item>
+                <item name="category" xsi:type="object">Eurotext\TranslationManagerCategory\Retriever\CategoryRetriever</item>
             </argument>
         </arguments>
     </type>
