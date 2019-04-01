@@ -10,7 +10,7 @@ namespace Eurotext\TranslationManagerCategory\Test\Unit\Mapper;
 
 use Eurotext\RestApiClient\Response\Project\ItemGetResponse;
 use Eurotext\TranslationManagerCategory\Mapper\CategoryItemGetMapper;
-use Eurotext\TranslationManagerProduct\Test\Unit\UnitTestAbstract;
+use Eurotext\TranslationManagerCategory\Test\Unit\UnitTestAbstract;
 use Magento\Catalog\Api\Data\CategoryInterface;
 use Magento\Catalog\Model\Category;
 use Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator;
