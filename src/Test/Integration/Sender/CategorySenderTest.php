@@ -39,7 +39,7 @@ class CategorySenderTest extends IntegrationTestAbstract
     /** @var CreateProjectServiceInterface */
     private $createProject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 

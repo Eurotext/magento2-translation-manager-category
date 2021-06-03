@@ -46,7 +46,7 @@ class CategoryRetrieverTest extends IntegrationTestAbstract
     /** @var ProjectV1Api */
     private $projectApi;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
